@@ -23,4 +23,22 @@ public class DataHelper {
     public static VerificationCode getVerificationCode(AuthInfo authInfo) {
         return new VerificationCode("12345");
     }
+
+    @Value
+    public static class CardNumberFirst {
+        private String number;
+    }
+
+    public static CardNumberFirst getCardNumberFirst() {
+        return new CardNumberFirst("5559 0000 0000 0001");
+    }
+
+    @Value
+    public static class CardNumberSecond {
+        private String number;
+    }
+
+    public static CardNumberSecond getCardNumberSecond() {
+        return new CardNumberSecond("5559 0000 0000 0002");
+    }
 }
