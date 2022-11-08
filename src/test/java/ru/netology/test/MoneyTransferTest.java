@@ -30,38 +30,21 @@ public class MoneyTransferTest {
     void shouldTransferMoneyBetweenOwnCards() {
         DashboardPage dashboardPage = new DashboardPage();
         int initialFirstCardBalance = dashboardPage.getFirstCardBalance(); //изначальный баланс первой карты
+        int initialSecondCardBalance = dashboardPage.getSecondCardBalance();  //изначальный баланс второй карты
 
-        var cardFirst = dashboardPage.getCardFirst();
-        dashboardPage.selectCardToTransferMoney(cardFirst);  //нажать на кнопку "Пополнить" первой карты
-
-        TransferMoneyPage transferMoneyPage = new TransferMoneyPage();
-        var cardNumberSecond = DataHelper.getCardNumberSecond();
-        transferMoneyPage.transferMoneyFromSecondCard(cardNumberSecond, "1000");  //пополнить первую карту на 1000 р.
-
-        //проверка баланса
-        int expected = initialFirstCardBalance + 1000;
-        var actual = dashboardPage.getFirstCardBalance();
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    @DisplayName("Should transfer money from the first card to the second")
-    void shouldTransferMoneySecondTime() {
-        DashboardPage dashboardPage = new DashboardPage();
-        int initialSecondCardBalance = dashboardPage.getSecondCardBalance(); //изначальный баланс второй карты
-
-        var cardSecond = dashboardPage.getCardSecond();
-        dashboardPage.selectCardToTransferMoney(cardSecond);  //нажать на кнопку "Пополнить" второй карты
+        dashboardPage.selectCardToTransferMoney(1);  //нажать на кнопку "Пополнить" первой карты
 
         TransferMoneyPage transferMoneyPage = new TransferMoneyPage();
-        var cardNumberFirst = DataHelper.getCardNumberFirst();
-        transferMoneyPage.transferMoneyFromFirstCard(cardNumberFirst, "1000");  //пополнить вторую карту на 1000 р.
+        transferMoneyPage.transferMoneyBetweenCards(2, "1000"); //пополнить первую карту на 1000 р. из счета второй карты
 
-        //проверка баланса
-        int expected = initialSecondCardBalance + 1000;
-        var actual = dashboardPage.getSecondCardBalance();
+        //проверка балансов
+        int expected1 = initialFirstCardBalance + 1000;
+        var actual1 = dashboardPage.getFirstCardBalance();
 
-        Assertions.assertEquals(expected, actual);
+        int expected2 = initialSecondCardBalance - 1000;
+        var actual2 = dashboardPage.getSecondCardBalance();
+
+        Assertions.assertEquals(expected1, actual1);
+        Assertions.assertEquals(expected2, actual2);
     }
 }

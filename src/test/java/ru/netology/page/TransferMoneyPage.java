@@ -20,19 +20,10 @@ public class TransferMoneyPage {
         pageName.shouldBe(visible);
     }
 
-    public DashboardPage transferMoneyFromFirstCard(DataHelper.CardNumberFirst cardNumberFirst, String amountOfMoney) {
+    public DashboardPage transferMoneyBetweenCards(int fromCardId, String amountOfMoney) {
         amount.setValue(amountOfMoney);
-        from.setValue(cardNumberFirst.getNumber());
+        from.setValue(String.valueOf(DataHelper.getCardNumber(fromCardId)));
         transferButton.click();
         return new DashboardPage();
     }
-
-    public DashboardPage transferMoneyFromSecondCard(DataHelper.CardNumberSecond cardNumberSecond, String amountOfMoney) {
-        amount.setValue(amountOfMoney);
-        from.setValue(cardNumberSecond.getNumber());
-        transferButton.click();
-        return new DashboardPage();
-    }
-
-
 }

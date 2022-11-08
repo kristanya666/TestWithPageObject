@@ -15,18 +15,6 @@ public class DashboardPage {
     private final String balanceFinish = " р.";
 
 
-    private SelenideElement cardFirst = $("div [data-test-id='92df3f1c-a033-48e6-8390-206f6b1f56c0']");
-    private SelenideElement cardSecond = $("div [data-test-id='0f3f5c2a-249e-4c3d-8287-09f7a039391d']");
-
-    public SelenideElement getCardFirst() {
-        return cardFirst;
-    }
-
-    public SelenideElement getCardSecond() {
-        return cardSecond;
-    }
-
-
     public DashboardPage() {
     }
 
@@ -47,8 +35,10 @@ public class DashboardPage {
         return Integer.parseInt(value);
     }
 
-    public TransferMoneyPage selectCardToTransferMoney(SelenideElement cardNumber) {
-        SelenideElement cardButton = cardNumber.$("[data-test-id=action-deposit");
+    public TransferMoneyPage selectCardToTransferMoney(int id) {
+        int validId = id - 1;       //валидный айди меньше на единицу, тк в элементах страницы отсчет от 0
+        var card = cards.get(validId);
+        SelenideElement cardButton = card.$("[data-test-id=action-deposit");
         cardButton.click();
         return new TransferMoneyPage();
     }

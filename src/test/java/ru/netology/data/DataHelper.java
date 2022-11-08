@@ -25,20 +25,17 @@ public class DataHelper {
     }
 
     @Value
-    public static class CardNumberFirst {
-        private String number;
+    public static class CardNumber {
+        private String cardNumber;
     }
 
-    public static CardNumberFirst getCardNumberFirst() {
-        return new CardNumberFirst("5559 0000 0000 0001");
-    }
 
-    @Value
-    public static class CardNumberSecond {
-        private String number;
-    }
-
-    public static CardNumberSecond getCardNumberSecond() {
-        return new CardNumberSecond("5559 0000 0000 0002");
+    public static CardNumber getCardNumber(int id) {
+        if (id == 1) {
+            return new CardNumber("5559 0000 0000 0001");
+        } else if (id == 2) {
+            return new CardNumber("5559 0000 0000 0002");
+        }
+        return null;
     }
 }
